@@ -1,0 +1,19 @@
+.footer {
+  display: block;
+  border-top: 1px solid #000000;
+  padding: 20px;
+  min-width: 660px;
+  max-height: 340px;
+  text-align: center;
+  font-size: 14px;
+  background-color: var(--color-primary-light);
+  color: #ffffff;
+}
+
+.address-link {
+  color: var(--color-primary-pink);
+}
+
+.address-link:hover {
+  text-decoration: underline;
+}
