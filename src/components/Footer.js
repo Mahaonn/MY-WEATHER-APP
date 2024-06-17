@@ -16,7 +16,7 @@ export default function Footer() {
         , is open-sourced on&nbsp;
         <a
           className="address-link"
-          href="https://github.com/Mahaonn/my-weather-project"
+          href="https://github.com/Mahaonn/MY-WEATHER-APP"
           target="_blank"
           rel="noreferrer"
         >
