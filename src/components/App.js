@@ -12,12 +12,6 @@ const App = () => {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState({
     ready: false,
-    city: "",
-    temperature: "",
-    temperatureDescription: "",
-    humidity: "",
-    wind: "",
-    icon: "",
   });
 
   return (
