@@ -1,49 +1,44 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-
+import React from "react";
 import "../styles/Weather.css";
-import Sunny from "../images/Sunny.png";
 
-export default function Weather() {
-  let weatherData = {
-    city: "Kyiv",
-    temperature: 15,
-    date: "Monday 15:00",
-    description: "Sunny",
-    humidity: 15,
-    wind: 2,
-  };
+const Weather = ({ weatherData }) => {
   return (
     <div className="Weather">
-      <div className="overview">
-        <h1>{weatherData.city}</h1>
-        <ul>
-          <li>Last updated: {weatherData.date}</li>
-          <li>{weatherData.description}</li>
-        </ul>
-      </div>
-      <div className="row">
-        <div className="col-6">
-          <div className="clearfix weather-temperature">
-            <img
-              src={Sunny}
-              alt={weatherData.description}
-              className="float-left"
-            />
-            <div className="float-left">
-              <strong>{weatherData.temperature}</strong>
-              <span className="units">
-                <a href="/">°C</a> | <a href="/">°F</a>
-              </span>
+      {weatherData.ready ? (
+        <>
+          <div className="overview">
+            <h1>{weatherData.city}</h1>
+            <ul>
+              <li>Last updated: {weatherData.date}</li>
+              <li>{weatherData.description}</li>
+            </ul>
+          </div>
+          <div className="row">
+            <div className="col-6">
+              <div className="clearfix weather-temperature">
+                <img
+                  src={weatherData.icon}
+                  alt={weatherData.description}
+                  className="float-left"
+                />
+                <div className="float-left">
+                  <strong>{weatherData.temperature}°C</strong>
+                </div>
+              </div>
+            </div>
+            <div className="col-6">
+              <ul>
+                <li>Humidity: {weatherData.humidity}%</li>
+                <li>Wind: {weatherData.wind} km/h</li>
+              </ul>
             </div>
           </div>
-        </div>
-        <div className="col-6">
-          <ul>
-            <li>Humidity: {weatherData.humidity}%</li>
-            <li>Wind: {weatherData.wind} km/h</li>
-          </ul>
-        </div>
-      </div>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
-}
+};
+
+export default Weather;

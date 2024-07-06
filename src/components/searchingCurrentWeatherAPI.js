@@ -4,8 +4,8 @@ export default async function searchingCurrentWeatherAPI(city) {
   if (!city) {
     throw new Error("City parameter is required");
   }
-
-  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7746bdeabca928cfedcad71e52fd9d66&units=metric`;
+  const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   const weatherData = {
     city: "",
@@ -17,7 +17,7 @@ export default async function searchingCurrentWeatherAPI(city) {
   };
 
   try {
-    const response = await axios.get(URL);
+    const response = await axios.get(apiUrl);
     weatherData.city = response.data.name;
     weatherData.temperature = Math.round(response.data.main.temp);
     weatherData.temperatureDescription = response.data.weather[0].description;
