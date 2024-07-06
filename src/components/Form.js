@@ -1,35 +1,28 @@
 import React, { useState } from "react";
-import axios from "axios";
-import searchingCurrentWeatherAPI from "./searchingCurrentWeatherAPI";
 
 import "../styles/Form.css";
 
-const Form = ({ setWeatherData }) => {
-  const [city, setCity] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const weatherData = await searchingCurrentWeatherAPI(city);
-      setWeatherData(weatherData);
-    } catch (error) {
-      console.error("Error fetching weather data:", error.message);
-    }
+const Form = ({ onCityChange }) => {
+  const [userInputCity, setUserInputCity] = useState("");
+  const handleCityChange = (e) => {
+    setUserInputCity(e.target.value);
   };
-
+  const handleSearch = () => {
+    onCityChange(userInputCity);
+  };
   return (
     <div className="form">
-      <form className="search__form" onSubmit={handleSubmit}>
+      <form className="search__form">
         <input
           className="search__input"
           type="text"
-          id="search-input"
           placeholder="Enter a city.."
           autoFocus
           required
-          onChange={(e) => setCity(e.target.value)}
+          value={userInputCity}
+          onChange={handleCityChange}
         />
-        <button type="submit" className="search__btn">
+        <button type="button" className="search__btn" onClick={handleSearch}>
           Search
         </button>
       </form>
