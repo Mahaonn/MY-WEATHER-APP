@@ -2,17 +2,16 @@ import Weather from "./Weather";
 
 import "../styles/Main.css";
 
-export default function Main() {
+const Main = ({ userCity }) => {
+  console.log("Значення city в Main.js:", userCity);
   return (
     <main className="main">
       <div className="weather-app-backdrop">
         <div className="weather-app weather-app-container">
-          <h1>
-            {" "}
-            <Weather defaultCity="Kyiv" />
-          </h1>
+          <Weather userCity={userCity} />
         </div>
       </div>
     </main>
   );
-}
+};
+export default Main;

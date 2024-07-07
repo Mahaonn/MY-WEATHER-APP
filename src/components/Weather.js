@@ -1,9 +1,12 @@
+import { useState } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/Weather.css";
 import Sunny from "../images/Sunny.png";
 
-export default function Weather() {
+const Weather = ({ userCity }) => {
+  console.log("Значення city в Weather.js:", userCity);
   let weatherData = {
     city: "Kyiv",
     temperature: 15,
@@ -46,4 +49,5 @@ export default function Weather() {
       </div>
     </div>
   );
-}
+};
+export default Weather;

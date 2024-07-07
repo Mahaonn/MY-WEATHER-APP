@@ -8,17 +8,17 @@ import "../styles/App.css";
 import "../styles/Variables.css";
 
 const App = () => {
-  const [cityInApp, setCityInApp] = useState(""); // Оголошуємо стан для міста
+  const [cityInApp, setCityInApp] = useState("");
 
   const handleCityChange = (city) => {
-    console.log("Місто в компоненті App:", city); // Виводимо значення міста в консоль
-    setCityInApp(city); // Зберігаємо місто в стані компонента App
+    console.log("Місто в компоненті App:", city);
+    setCityInApp(city);
   };
 
   return (
     <div className="WeatherApp">
       <Header onCityChange={handleCityChange} />
-      <Main />
+      <Main city={cityInApp} />
       <Footer />
     </div>
   );
