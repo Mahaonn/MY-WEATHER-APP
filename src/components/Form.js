@@ -4,14 +4,13 @@ import React, { useState } from "react";
 import "../styles/Form.css";
 
 const Form = ({ onCityChange }) => {
-  const [userInputCity, setUserInputCity] = useState("Kyiv");
+  const [userInputCity, setUserInputCity] = useState("");
 
   const handleCityChange = (e) => {
     setUserInputCity(e.target.value);
-    onCityChange(e.target.value); // Викликаємо функцію для передачі міста
   };
   const handleSearch = () => {
-    onCityChange(userInputCity); // Викликаємо функцію для передачі міста
+    onCityChange(userInputCity);
   };
   return (
     <div className="form">
