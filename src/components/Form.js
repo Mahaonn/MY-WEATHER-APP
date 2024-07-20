@@ -7,6 +7,7 @@ const Form = ({ onCityChange }) => {
   const [userInputCity, setUserInputCity] = useState("");
 
   const handleCityChange = (e) => {
+    e.preventDefault();
     setUserInputCity(e.target.value);
   };
   const handleSearch = () => {

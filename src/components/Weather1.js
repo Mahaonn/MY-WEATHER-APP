@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,7 +12,7 @@ const Weather = ({ userCity }) => {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
 
-  function handleResponse(response) {
+  const handleResponse = useCallback((response) => {
     setWeatherData({
       ready: true,
       temperature: response.data.main.temp,
@@ -24,14 +24,41 @@ const Weather = ({ userCity }) => {
       city: response.data.name,
     });
     console.log("Дані про погоду:", response.data);
+  }, []);
+
+  const search = useCallback(() => {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+    axios
+      .get(apiUrl)
+      .then(handleResponse)
+      .catch((error) => {
+        console.error("Error fetching weather data:", error);
+      });
+  }, [city, unit, handleResponse]);
+
+  useEffect(() => {
+    search();
+  }, [search]);
+
+  function convertToFahrenheit(celsius) {
+    return (celsius * 9) / 5 + 32;
   }
 
-  function search() {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
+  function showCelsius(event) {
+    event.preventDefault();
+    setUnit("metric");
+  }
+
+  function showFahrenheit(event) {
+    event.preventDefault();
+    setUnit("imperial");
   }
 
   if (weatherData.ready) {
+    const temperature =
+      unit === "metric"
+        ? weatherData.temperature
+        : convertToFahrenheit(weatherData.temperature);
     return (
       <div className="Weather">
         <div className="overview">
@@ -50,9 +77,15 @@ const Weather = ({ userCity }) => {
                 className="float-start"
               />
               <div className="float-start">
-                <strong>{weatherData.temperature}</strong>
+                <strong>{Math.round(temperature)}</strong>
                 <span className="units">
-                  <a href="/">°C</a> | <a href="/">°F</a>
+                  <a href="/" onClick={showCelsius}>
+                    °C
+                  </a>{" "}
+                  |{" "}
+                  <a href="/" onClick={showFahrenheit}>
+                    °F
+                  </a>
                 </span>
               </div>
             </div>
