@@ -7,15 +7,17 @@ const Form = ({ onCityChange }) => {
   const [userInputCity, setUserInputCity] = useState("");
 
   const handleCityChange = (e) => {
-    e.preventDefault();
     setUserInputCity(e.target.value);
   };
-  const handleSearch = () => {
+
+  const handleSearch = (e) => {
+    e.preventDefault();
     onCityChange(userInputCity);
   };
+
   return (
     <div className="form">
-      <form className="search__form">
+      <form className="search__form" onSubmit={handleSearch}>
         <input
           className="search__input"
           type="text"
@@ -23,7 +25,7 @@ const Form = ({ onCityChange }) => {
           value={userInputCity}
           onChange={handleCityChange}
         />
-        <button type="button" className="search__btn" onClick={handleSearch}>
+        <button type="submit" className="search__btn">
           Search
         </button>
       </form>

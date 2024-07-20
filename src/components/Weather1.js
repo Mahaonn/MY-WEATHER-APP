@@ -10,10 +10,11 @@ const Weather = ({ userCity }) => {
   console.log("Значення city в Weather.js:", city);
   const [unit, setUnit] = useState("metric");
   const [weatherData, setWeatherData] = useState({ ready: false });
+  const [originalData, setOriginalData] = useState(null); // Додаємо стан для зберігання оригінальних даних
   const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
 
   const handleResponse = useCallback((response) => {
-    setWeatherData({
+    const data = {
       ready: true,
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
@@ -22,19 +23,21 @@ const Weather = ({ userCity }) => {
       icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       wind: response.data.wind.speed,
       city: response.data.name,
-    });
+    };
+    setWeatherData(data);
+    setOriginalData(data); // Зберігаємо оригінальні дані
     console.log("Дані про погоду:", response.data);
   }, []);
 
   const search = useCallback(() => {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios
       .get(apiUrl)
       .then(handleResponse)
       .catch((error) => {
         console.error("Error fetching weather data:", error);
       });
-  }, [city, unit, handleResponse]);
+  }, [city, handleResponse]);
 
   useEffect(() => {
     search();
@@ -47,18 +50,20 @@ const Weather = ({ userCity }) => {
   function showCelsius(event) {
     event.preventDefault();
     setUnit("metric");
+    setWeatherData(originalData); // Відновлюємо оригінальні дані
   }
 
   function showFahrenheit(event) {
     event.preventDefault();
     setUnit("imperial");
+    const convertedData = {
+      ...originalData,
+      temperature: convertToFahrenheit(originalData.temperature),
+    };
+    setWeatherData(convertedData); // Конвертуємо температуру і оновлюємо стан
   }
 
   if (weatherData.ready) {
-    const temperature =
-      unit === "metric"
-        ? weatherData.temperature
-        : convertToFahrenheit(weatherData.temperature);
     return (
       <div className="Weather">
         <div className="overview">
@@ -77,7 +82,7 @@ const Weather = ({ userCity }) => {
                 className="float-start"
               />
               <div className="float-start">
-                <strong>{Math.round(temperature)}</strong>
+                <strong>{Math.round(weatherData.temperature)}</strong>
                 <span className="units">
                   <a href="/" onClick={showCelsius}>
                     °C
@@ -104,4 +109,5 @@ const Weather = ({ userCity }) => {
     return "Loading...";
   }
 };
+
 export default Weather;
