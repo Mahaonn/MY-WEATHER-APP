@@ -1,53 +1,38 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import "../styles/Weather.css";
-import Sunny from "../images/Sunny.png";
 
 const Weather = ({ userCity }) => {
-  console.log("Значення city в Weather.js:", userCity);
-  let weatherData = {
-    city: "Kyiv",
-    temperature: 15,
-    date: "Monday 15:00",
-    description: "Sunny",
-    humidity: 15,
-    wind: 2,
-  };
+  const [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiKey = process.env.REACT_APP_APIKEY;
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await axios.get(apiUrl);
+        setWeatherData(response.data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchData();
+  }, [userCity]);
+
   return (
-    <div className="Weather">
-      <div className="overview">
-        <h1>{weatherData.city}</h1>
-        <ul>
-          <li>Last updated: {weatherData.date}</li>
-          <li>{weatherData.description}</li>
-        </ul>
-      </div>
-      <div className="row">
-        <div className="col-6">
-          <div className="clearfix weather-temperature">
-            <img
-              src={Sunny}
-              alt={weatherData.description}
-              className="float-left"
-            />
-            <div className="float-left">
-              <strong>{weatherData.temperature}</strong>
-              <span className="units">
-                <a href="/">°C</a> | <a href="/">°F</a>
-              </span>
-            </div>
-          </div>
+    <div>
+      {weatherData ? (
+        <div>
+          <h2>Weather in {userCity}</h2>
+          <p>Temperature: {weatherData.main.temp}°C</p>
+          <p>Weather: {weatherData.weather[0].description}</p>
         </div>
-        <div className="col-6">
-          <ul>
-            <li>Humidity: {weatherData.humidity}%</li>
-            <li>Wind: {weatherData.wind} km/h</li>
-          </ul>
-        </div>
-      </div>
+      ) : (
+        <p>Loading weather data...</p>
+      )}
     </div>
   );
 };
+
 export default Weather;

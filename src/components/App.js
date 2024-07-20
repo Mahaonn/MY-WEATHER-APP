@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="WeatherApp">
       <Header onCityChange={handleCityChange} />
-      <Main city={cityInApp} />
+      <Main userCity={cityInApp} />
       <Footer />
     </div>
   );
