@@ -8,7 +8,6 @@ const Weather = ({ userCity }) => {
   const defaultCity = "Zilina";
   const city = userCity || defaultCity;
   console.log("Значення city в Weather.js:", city);
-  const [unit, setUnit] = useState("metric");
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [originalData, setOriginalData] = useState(null); // Додаємо стан для зберігання оригінальних даних
   const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
@@ -49,13 +48,11 @@ const Weather = ({ userCity }) => {
 
   function showCelsius(event) {
     event.preventDefault();
-    setUnit("metric");
     setWeatherData(originalData); // Відновлюємо оригінальні дані
   }
 
   function showFahrenheit(event) {
     event.preventDefault();
-    setUnit("imperial");
     const convertedData = {
       ...originalData,
       temperature: convertToFahrenheit(originalData.temperature),
