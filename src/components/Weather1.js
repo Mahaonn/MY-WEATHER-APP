@@ -66,7 +66,7 @@ const Weather = ({ userCity }) => {
         <div className="overview">
           <h1>{weatherData.city}</h1>
           <ul>
-            <li>Last updated: {weatherData.date.toLocaleString()}</li>
+            <li>{weatherData.date.toLocaleString()}</li>
             <li>{weatherData.description}</li>
           </ul>
         </div>
@@ -78,7 +78,7 @@ const Weather = ({ userCity }) => {
                 alt={weatherData.description}
                 className="float-start"
               />
-              <div className="float-start">
+              <div className="float-start weather-temperature">
                 <strong>{Math.round(weatherData.temperature)}</strong>
                 <span className="units">
                   <a href="/" onClick={showCelsius}>

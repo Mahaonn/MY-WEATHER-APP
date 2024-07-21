@@ -15,7 +15,7 @@
 }
 
 .Weather .weather-temperature strong {
-  color: rgb(33, 33, 33);
+  color: var(--color-secondary-pink);
   font-size: 64px;
   line-height: 1;
   font-weight: 400;

@@ -11,10 +11,13 @@
   background-color: #c8c9de;
   /* border-radius: 0 8px 8px 0; */
 }
-
+.input__container {
+  position: relative;
+}
 .search__input {
   padding: 10px 15px;
   width: 316px;
+  height: 100%;
   font-weight: 300;
   font-size: 18px;
   text-transform: capitalize;
@@ -22,15 +25,30 @@
   background-color: #c8c9de;
 }
 
+.clear__btn {
+  position: absolute;
+  right: -10px;
+  top: 3px;
+  transform: translate(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.clear__btn:hover {
+  color: #000;
+}
+
 .search__btn {
   width: 144px;
-  height: 40px;
+  height: 42px;
   font-size: 18px;
   font-weight: 500;
   line-height: 1;
   color: whitesmoke;
   background-color: var(--color-secondary-light);
-  /* border-radius: 6px; */
   transition: background-color 0.3s ease;
 }
 
