@@ -42,7 +42,7 @@ const Weather = ({ userCity }) => {
 
   useEffect(() => {
     search();
-    const intervalId = setInterval(search, 60000);
+    const intervalId = setInterval(search, 3600000);
     return () => clearInterval(intervalId);
   }, [search]);
 
