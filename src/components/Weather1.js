@@ -42,6 +42,8 @@ const Weather = ({ userCity }) => {
 
   useEffect(() => {
     search();
+    const intervalId = setInterval(search, 60000);
+    return () => clearInterval(intervalId);
   }, [search]);
 
   function convertToFahrenheit(celsius) {
