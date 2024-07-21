@@ -17,14 +17,8 @@ const FormattedDate = (props) => {
   ];
   let day = days[props.date.getDay()];
   let month = months[props.date.getMonth()];
-  let hours = props.date.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = props.date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
+  const hours = props.date.getHours().toString().padStart(2, "0");
+  const minutes = props.date.getMinutes().toString().padStart(2, "0");
 
   return (
     <div>
