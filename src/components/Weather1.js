@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/Weather.css";
@@ -9,7 +11,7 @@ const Weather = ({ userCity }) => {
   const city = userCity || defaultCity;
   console.log("Значення city в Weather.js:", city);
   const [weatherData, setWeatherData] = useState({ ready: false });
-  const [originalData, setOriginalData] = useState(null); // Додаємо стан для зберігання оригінальних даних
+  const [originalData, setOriginalData] = useState(null);
   const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
 
   const handleResponse = useCallback((response) => {
@@ -24,7 +26,7 @@ const Weather = ({ userCity }) => {
       city: response.data.name,
     };
     setWeatherData(data);
-    setOriginalData(data); // Зберігаємо оригінальні дані
+    setOriginalData(data);
     console.log("Дані про погоду:", response.data);
   }, []);
 
@@ -48,7 +50,7 @@ const Weather = ({ userCity }) => {
 
   function showCelsius(event) {
     event.preventDefault();
-    setWeatherData(originalData); // Відновлюємо оригінальні дані
+    setWeatherData(originalData);
   }
 
   function showFahrenheit(event) {
@@ -57,7 +59,7 @@ const Weather = ({ userCity }) => {
       ...originalData,
       temperature: convertToFahrenheit(originalData.temperature),
     };
-    setWeatherData(convertedData); // Конвертуємо температуру і оновлюємо стан
+    setWeatherData(convertedData);
   }
 
   if (weatherData.ready) {
@@ -66,7 +68,9 @@ const Weather = ({ userCity }) => {
         <div className="overview">
           <h1>{weatherData.city}</h1>
           <ul>
-            <li>{weatherData.date.toLocaleString()}</li>
+            <li>
+              <FormattedDate date={weatherData.date} />
+            </li>
             <li>{weatherData.description}</li>
           </ul>
         </div>
