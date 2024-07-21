@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const FormattedDate = (props) => {
-  const [caurrentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date());
@@ -26,9 +26,9 @@ const FormattedDate = (props) => {
   ];
   let day = days[props.date.getDay()];
   let month = months[props.date.getMonth()];
-  const hours = props.date.getHours().toString().padStart(2, "0");
-  const minutes = props.date.getMinutes().toString().padStart(2, "0");
-  const seconds = caurrentTime.getSeconds().toString().padStart(2, "0");
+  const hours = currentTime.getHours().toString().padStart(2, "0");
+  const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+  const seconds = currentTime.getSeconds().toString().padStart(2, "0");
 
   return (
     <div>
