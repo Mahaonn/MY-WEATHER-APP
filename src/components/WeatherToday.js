@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/Weather.css";
 
-const Weather = ({ userCity }) => {
+const WeatherToday = ({ userCity }) => {
   const defaultCity = "Zilina";
   const city = userCity || defaultCity;
   console.log("Значення city в Weather.js:", city);
@@ -113,4 +113,4 @@ const Weather = ({ userCity }) => {
   }
 };
 
-export default Weather;
+export default WeatherToday;

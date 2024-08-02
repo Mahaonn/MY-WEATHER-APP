@@ -4,6 +4,7 @@
   padding: 20px;
   min-width: 660px;
   max-height: 340px;
+  margin-top: auto;
   text-align: center;
   font-size: 14px;
   background-color: var(--color-primary-light);

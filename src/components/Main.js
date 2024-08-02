@@ -1,4 +1,5 @@
-import Weather1 from "./Weather1";
+import WeatherToday from "./WeatherToday";
+import WeatherForecastWeekly from "./WeatherForecastWeekly";
 
 import "../styles/Main.css";
 
@@ -8,7 +9,8 @@ const Main = ({ userCity }) => {
     <main className="main">
       <div className="weather-app-backdrop">
         <div className="weather-app weather-app-container">
-          <Weather1 userCity={userCity} />
+          <WeatherToday userCity={userCity} />
+          <WeatherForecastWeekly />
         </div>
       </div>
     </main>
