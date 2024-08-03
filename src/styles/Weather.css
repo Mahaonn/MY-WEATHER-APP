@@ -8,10 +8,9 @@
   margin-bottom: 20px;
 }
 
-.Weather .weather-temperature img {
-  margin-right: 5px;
-  height: 64px;
-  width: 64px;
+.Weather .weather-temperature canvas {
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .Weather .weather-temperature strong {

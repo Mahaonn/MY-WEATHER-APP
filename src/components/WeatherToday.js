@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import FormattedDate from "./FormattedDate";
+import WeatherIcon from "./WeatherIcon";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -21,7 +22,7 @@ const WeatherToday = ({ userCity }) => {
       humidity: response.data.main.humidity,
       date: new Date(response.data.dt * 1000),
       description: response.data.weather[0].description,
-      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+      icon: response.data.weather[0].icon,
       wind: response.data.wind.speed,
       city: response.data.name,
     };
@@ -79,11 +80,13 @@ const WeatherToday = ({ userCity }) => {
         <div className="row">
           <div className="col-6">
             <div className="clearfix weather-temperature">
-              <img
-                src={weatherData.icon}
-                alt={weatherData.description}
-                className="float-start"
-              />
+              <div className="float-start">
+                <WeatherIcon
+                  code={weatherData.icon}
+                  alt={weatherData.description}
+                  size={52}
+                />
+              </div>
               <div className="float-start weather-temperature">
                 <strong>{Math.round(weatherData.temperature)}</strong>
                 <span className="units">
