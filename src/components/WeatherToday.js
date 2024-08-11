@@ -2,22 +2,23 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import FormattedDate from "./FormattedDate";
 import WeatherIcon from "./WeatherIcon";
+import WeatherForecastWeekly from "./WeatherForecastWeekly";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "../styles/Weather.css";
 
-const WeatherToday = ({ userCity }) => {
-  const defaultCity = "Zilina";
-  const city = userCity || defaultCity;
-  console.log("Значення city в Weather.js:", city);
+const WeatherToday = ({ city }) => {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [originalData, setOriginalData] = useState(null);
+  const [unit, setUnit] = useState("metric");
   const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
 
   const handleResponse = useCallback((response) => {
+    console.log(response.data);
     const data = {
       ready: true,
+      coordinate: response.data.coord,
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
       date: new Date(response.data.dt * 1000),
@@ -28,7 +29,6 @@ const WeatherToday = ({ userCity }) => {
     };
     setWeatherData(data);
     setOriginalData(data);
-    console.log("Дані про погоду:", response.data);
   }, []);
 
   const search = useCallback(() => {
@@ -54,6 +54,7 @@ const WeatherToday = ({ userCity }) => {
   function showCelsius(event) {
     event.preventDefault();
     setWeatherData(originalData);
+    setUnit("metric");
   }
 
   function showFahrenheit(event) {
@@ -63,6 +64,7 @@ const WeatherToday = ({ userCity }) => {
       temperature: convertToFahrenheit(originalData.temperature),
     };
     setWeatherData(convertedData);
+    setUnit("imperial");
   }
 
   if (weatherData.ready) {
@@ -90,11 +92,19 @@ const WeatherToday = ({ userCity }) => {
               <div className="float-start weather-temperature">
                 <strong>{Math.round(weatherData.temperature)}</strong>
                 <span className="units">
-                  <a href="/" onClick={showCelsius}>
+                  <a
+                    href="/"
+                    onClick={showCelsius}
+                    className={unit === "metric" ? "active" : ""}
+                  >
                     °C
                   </a>{" "}
                   |{" "}
-                  <a href="/" onClick={showFahrenheit}>
+                  <a
+                    href="/"
+                    onClick={showFahrenheit}
+                    className={unit === "imperial" ? "active" : ""}
+                  >
                     °F
                   </a>
                 </span>
@@ -107,6 +117,7 @@ const WeatherToday = ({ userCity }) => {
               <li>Wind: {weatherData.wind} km/h</li>
             </ul>
           </div>
+          <WeatherForecastWeekly coordinate={weatherData.coordinate} />
         </div>
       </div>
     );

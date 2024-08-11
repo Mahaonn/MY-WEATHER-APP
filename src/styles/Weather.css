@@ -26,8 +26,16 @@
   top: -34px;
 }
 
-.Weather .weather-temperature .active {
-  color: rgb(33, 33, 33);
+.units a {
+  padding: 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: rgb(43 38 38 / 76%);
+}
+
+.units a.active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #f5c7f7;
   cursor: default;
 }
 
