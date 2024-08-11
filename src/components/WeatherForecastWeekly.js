@@ -1,4 +1,3 @@
-import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import WeatherIcon from "./WeatherIcon";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,10 +5,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Weather.css";
 import "../styles/WeatherForcast.css";
 
-const WeatherForecastWeekly = ({ userCity }) => {
-  const defaultCity = "Zilina";
-  const city = userCity || defaultCity;
-  console.log("Значення в компоненті WeatherForecastWeekly: ", city);
+const WeatherForecastWeekly = (props) => {
+  const handleResponse = (response) => {
+    console.log(response.data);
+    console.log(response.data.lat);
+
+    console.log(response.data.lon);
+  };
+  let longitude = props.coordinate.lon;
+  let latitude = props.coordinate.lat;
+  const apiKey = "c119ffef35b7245a5e03b6e5724ae961";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(handleResponse);
   return (
     <div className="WeatherForecastWeekly">
       <div className="row">

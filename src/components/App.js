@@ -11,7 +11,6 @@ const App = () => {
   const [cityInApp, setCityInApp] = useState("");
 
   const handleCityChange = (city) => {
-    console.log("Місто в компоненті App:", city);
     setCityInApp(city);
   };
 
