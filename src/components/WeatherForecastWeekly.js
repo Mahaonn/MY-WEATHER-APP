@@ -1,36 +1,61 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import WeatherIcon from "./WeatherIcon";
-import "bootstrap/dist/css/bootstrap.min.css";
+import WeatherForecastDay from "./WeatherForecastDay";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Weather.css";
 import "../styles/WeatherForcast.css";
 
 const WeatherForecastWeekly = (props) => {
-  const handleResponse = (response) => {
-    console.log(response.data);
-    console.log(response.data.lat);
+  const [forecast, setForecast] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
-    console.log(response.data.lon);
-  };
-  let longitude = props.coordinate.lon;
-  let latitude = props.coordinate.lat;
-  const apiKey = "c119ffef35b7245a5e03b6e5724ae961";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(handleResponse);
-  return (
-    <div className="WeatherForecastWeekly">
-      <div className="row">
-        <div className="col">
-          <div className="WeatherForcast-day">Thu</div>{" "}
-          <WeatherIcon code="04n" size={36} />{" "}
-          <div className="WeatherForcast-temperature">
-            <span className="WeatherForcast-temperature-max">19°</span>{" "}
-            <span className="WeatherForcast-temperature-min">10°</span>
-          </div>
+  useEffect(() => {
+    setLoaded(false);
+  }, [props.coordinates]);
+
+  useEffect(() => {
+    if (!loaded && props.coordinates) {
+      const fetchForecast = async () => {
+        let longitude = props.coordinates.lon;
+        let latitude = props.coordinates.lat;
+        const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
+        let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+        try {
+          const response = await axios.get(apiUrl);
+          setForecast(response.data.daily);
+          setLoaded(true);
+        } catch (error) {
+          console.error("Error fetching forecast data:", error);
+        }
+      };
+
+      fetchForecast();
+    }
+  }, [loaded, props.coordinates]);
+
+  if (loaded) {
+    return (
+      <div className="WeatherForecastWeekly">
+        <div className="row">
+          {forecast.map((dailyForecast, index) => {
+            if (index < 5) {
+              return (
+                <div className="col" key={index}>
+                  <WeatherForecastDay data={dailyForecast} />
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return "Loading...";
+  }
 };
 
 export default WeatherForecastWeekly;

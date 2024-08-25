@@ -1,130 +1,104 @@
-import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import FormattedDate from "./FormattedDate";
 import WeatherIcon from "./WeatherIcon";
-import WeatherForecastWeekly from "./WeatherForecastWeekly";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import "../styles/Weather.css";
 
-const WeatherToday = ({ city }) => {
-  const [weatherData, setWeatherData] = useState({ ready: false });
-  const [originalData, setOriginalData] = useState(null);
+const WeatherToday = (props) => {
+  const [weatherData, setWeatherData] = useState(null);
   const [unit, setUnit] = useState("metric");
-  const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
-
-  const handleResponse = useCallback((response) => {
-    console.log(response.data);
-    const data = {
-      ready: true,
-      coordinate: response.data.coord,
-      temperature: response.data.main.temp,
-      humidity: response.data.main.humidity,
-      date: new Date(response.data.dt * 1000),
-      description: response.data.weather[0].description,
-      icon: response.data.weather[0].icon,
-      wind: response.data.wind.speed,
-      city: response.data.name,
-    };
-    setWeatherData(data);
-    setOriginalData(data);
-  }, []);
-
-  const search = useCallback(() => {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios
-      .get(apiUrl)
-      .then(handleResponse)
-      .catch((error) => {
-        console.error("Error fetching weather data:", error);
-      });
-  }, [city, handleResponse]);
 
   useEffect(() => {
-    search();
-    const intervalId = setInterval(search, 3600000);
-    return () => clearInterval(intervalId);
-  }, [search]);
+    if (props.data) {
+      setWeatherData(props.data);
+    }
+  }, [props.data]);
 
   function convertToFahrenheit(celsius) {
     return (celsius * 9) / 5 + 32;
   }
 
+  function convertToMph(kmh) {
+    return kmh * 0.621371;
+  }
+
   function showCelsius(event) {
     event.preventDefault();
-    setWeatherData(originalData);
+    setWeatherData(props.data);
     setUnit("metric");
   }
 
   function showFahrenheit(event) {
     event.preventDefault();
     const convertedData = {
-      ...originalData,
-      temperature: convertToFahrenheit(originalData.temperature),
+      ...props.data,
+      temperature: convertToFahrenheit(props.data.temperature),
+      wind: convertToMph(props.data.wind),
     };
     setWeatherData(convertedData);
     setUnit("imperial");
   }
 
-  if (weatherData.ready) {
-    return (
-      <div className="Weather">
-        <div className="overview">
-          <h1>{weatherData.city}</h1>
-          <ul>
-            <li>
-              <FormattedDate date={weatherData.date} />
-            </li>
-            <li>{weatherData.description}</li>
-          </ul>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <div className="clearfix weather-temperature">
-              <div className="float-start">
-                <WeatherIcon
-                  code={weatherData.icon}
-                  alt={weatherData.description}
-                  size={52}
-                />
-              </div>
-              <div className="float-start weather-temperature">
-                <strong>{Math.round(weatherData.temperature)}</strong>
-                <span className="units">
-                  <a
-                    href="/"
-                    onClick={showCelsius}
-                    className={unit === "metric" ? "active" : ""}
-                  >
-                    °C
-                  </a>{" "}
-                  |{" "}
-                  <a
-                    href="/"
-                    onClick={showFahrenheit}
-                    className={unit === "imperial" ? "active" : ""}
-                  >
-                    °F
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="col-6">
-            <ul>
-              <li>Humidity: {weatherData.humidity}%</li>
-              <li>Wind: {weatherData.wind} km/h</li>
-            </ul>
-          </div>
-          <WeatherForecastWeekly coordinate={weatherData.coordinate} />
-        </div>
-      </div>
-    );
-  } else {
-    search();
+  if (!weatherData) {
     return "Loading...";
   }
+
+  return (
+    <div className="Weather">
+      <div className="overview">
+        <h1>{weatherData.city}</h1>
+        <ul>
+          <li>
+            <FormattedDate date={weatherData.date} />
+          </li>
+          <li>{weatherData.description}</li>
+        </ul>
+      </div>
+      <div className="row">
+        <div className="col-6">
+          <div className="clearfix weather-temperature">
+            <div className="float-start">
+              <WeatherIcon
+                code={weatherData.icon}
+                alt={weatherData.description}
+                size={52}
+              />
+            </div>
+            <div className="float-start weather-temperature">
+              <strong>{Math.round(weatherData.temperature)}</strong>
+              <span className="units">
+                <a
+                  href="/"
+                  onClick={showCelsius}
+                  className={unit === "metric" ? "active" : ""}
+                >
+                  °C
+                </a>{" "}
+                |{" "}
+                <a
+                  href="/"
+                  onClick={showFahrenheit}
+                  className={unit === "imperial" ? "active" : ""}
+                >
+                  °F
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="col-6">
+          <ul>
+            <li>Humidity: {weatherData.humidity}%</li>
+            <li>
+              Wind: {parseFloat(weatherData.wind).toFixed(1)}{" "}
+              {unit === "metric" ? "km/h" : "mph"}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default WeatherToday;
