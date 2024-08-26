@@ -1,6 +1,6 @@
 import ReactAnimatedWeather from "react-animated-weather";
 
-const WeatherIcon = (props) => {
+const WeatherIcon = ({ code, size = 64, color = "#f5c7f7" }) => {
   const mapIconsWeather = {
     "01d": "CLEAR_DAY",
     "01n": "CLEAR_NIGHT",
@@ -23,9 +23,9 @@ const WeatherIcon = (props) => {
   };
   return (
     <ReactAnimatedWeather
-      icon={mapIconsWeather[props.code]}
-      color="#f5c7f7"
-      size={props.size}
+      icon={mapIconsWeather[code]}
+      color={color}
+      size={size}
       animated={true}
     />
   );

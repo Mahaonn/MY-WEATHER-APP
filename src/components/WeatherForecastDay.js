@@ -1,18 +1,48 @@
+import React, { useEffect, useState } from "react";
 import WeatherIcon from "./WeatherIcon";
 
-const WeatherForcastDay = (props) => {
-  const maxTemperature = () => {};
-  const minTemperature = () => {};
+const WeatherForecastDay = (props) => {
+  const [weatherData, setWeatherData] = useState(props.data);
+
+  useEffect(() => {
+    setWeatherData(props.data);
+  }, [props.data, props.unit]);
+
+  function convertToFahrenheit(celsius) {
+    return (celsius * 9) / 5 + 32;
+  }
+
+  const maxTemperature = () => {
+    return props.unit === "metric"
+      ? Math.round(weatherData.temp.max)
+      : Math.round(convertToFahrenheit(weatherData.temp.max));
+  };
+
+  const minTemperature = () => {
+    return props.unit === "metric"
+      ? Math.round(weatherData.temp.min)
+      : Math.round(convertToFahrenheit(weatherData.temp.min));
+  };
+
+  const day = () => {
+    let date = new Date(weatherData.dt * 1000);
+    return date.toLocaleDateString("en-us", { weekday: "short" });
+  };
+
   return (
     <>
-      <div className="WeatherForcast-day">Thu</div>{" "}
-      <WeatherIcon code="04n" size={36} />{" "}
-      <div className="WeatherForcast-temperature">
-        <span className="WeatherForcast-temperature-max">19°</span>{" "}
-        <span className="WeatherForcast-temperature-min">10°</span>
+      <div className="WeatherForecast-day">{day()}</div>
+      <WeatherIcon code={weatherData.weather[0].icon} size={36} />
+      <div className="WeatherForecast-temperature">
+        <span className="WeatherForecast-temperature-max">
+          {maxTemperature()}°
+        </span>
+        <span className="WeatherForecast-temperature-min">
+          {minTemperature()}°
+        </span>
       </div>
     </>
   );
 };
 
-export default WeatherForcastDay;
+export default WeatherForecastDay;

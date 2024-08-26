@@ -10,6 +10,7 @@ const Main = ({ userCity }) => {
   const city = userCity || defaultCity;
 
   const [weatherData, setWeatherData] = useState(null);
+  const [unit, setUnit] = useState("metric");
   const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
 
   useEffect(() => {
@@ -44,8 +45,11 @@ const Main = ({ userCity }) => {
     <main className="main">
       <div className="weather-app-backdrop">
         <div className="weather-app weather-app-container">
-          <WeatherToday data={weatherData} />
-          <WeatherForecastWeekly coordinates={weatherData.coordinates} />
+          <WeatherToday data={weatherData} unit={unit} setUnit={setUnit} />
+          <WeatherForecastWeekly
+            coordinates={weatherData.coordinate}
+            unit={unit}
+          />
         </div>
       </div>
     </main>

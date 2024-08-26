@@ -7,7 +7,6 @@ import "../styles/Weather.css";
 
 const WeatherToday = (props) => {
   const [weatherData, setWeatherData] = useState(null);
-  const [unit, setUnit] = useState("metric");
 
   useEffect(() => {
     if (props.data) {
@@ -26,7 +25,7 @@ const WeatherToday = (props) => {
   function showCelsius(event) {
     event.preventDefault();
     setWeatherData(props.data);
-    setUnit("metric");
+    props.setUnit("metric");
   }
 
   function showFahrenheit(event) {
@@ -37,7 +36,7 @@ const WeatherToday = (props) => {
       wind: convertToMph(props.data.wind),
     };
     setWeatherData(convertedData);
-    setUnit("imperial");
+    props.setUnit("imperial");
   }
 
   if (!weatherData) {
@@ -71,7 +70,7 @@ const WeatherToday = (props) => {
                 <a
                   href="/"
                   onClick={showCelsius}
-                  className={unit === "metric" ? "active" : ""}
+                  className={props.unit === "metric" ? "active" : ""}
                 >
                   °C
                 </a>{" "}
@@ -79,7 +78,7 @@ const WeatherToday = (props) => {
                 <a
                   href="/"
                   onClick={showFahrenheit}
-                  className={unit === "imperial" ? "active" : ""}
+                  className={props.unit === "imperial" ? "active" : ""}
                 >
                   °F
                 </a>
@@ -92,7 +91,7 @@ const WeatherToday = (props) => {
             <li>Humidity: {weatherData.humidity}%</li>
             <li>
               Wind: {parseFloat(weatherData.wind).toFixed(1)}{" "}
-              {unit === "metric" ? "km/h" : "mph"}
+              {props.unit === "metric" ? "km/h" : "mph"}
             </li>
           </ul>
         </div>

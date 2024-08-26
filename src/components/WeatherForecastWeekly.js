@@ -11,20 +11,21 @@ const WeatherForecastWeekly = (props) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    console.log("Coordinates:", props.coordinates);
     setLoaded(false);
   }, [props.coordinates]);
 
   useEffect(() => {
     if (!loaded && props.coordinates) {
       const fetchForecast = async () => {
+        let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
         let longitude = props.coordinates.lon;
         let latitude = props.coordinates.lat;
-        const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
         let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
         try {
           const response = await axios.get(apiUrl);
-          setForecast(response.data.daily);
+          setForecast(response.data.daily.slice(1, 7));
           setLoaded(true);
         } catch (error) {
           console.error("Error fetching forecast data:", error);
@@ -35,27 +36,21 @@ const WeatherForecastWeekly = (props) => {
     }
   }, [loaded, props.coordinates]);
 
-  if (loaded) {
-    return (
-      <div className="WeatherForecastWeekly">
-        <div className="row">
-          {forecast.map((dailyForecast, index) => {
-            if (index < 5) {
-              return (
-                <div className="col" key={index}>
-                  <WeatherForecastDay data={dailyForecast} />
-                </div>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </div>
-      </div>
-    );
-  } else {
-    return "Loading...";
+  if (!forecast) {
+    return <div>Loading...</div>;
   }
+
+  return (
+    <div className="WeatherForecastWeekly">
+      <div className="row">
+        {forecast.map((dailyForecast, index) => (
+          <div className="col" key={index}>
+            <WeatherForecastDay data={dailyForecast} unit={props.unit} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default WeatherForecastWeekly;
