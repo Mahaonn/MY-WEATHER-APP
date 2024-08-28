@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import WeatherIcon from "./WeatherIcon";
 
+import "../styles/Variables.css";
+import "../styles/WeatherForecast.css";
+
 const WeatherForecastDay = (props) => {
   const [weatherData, setWeatherData] = useState(props.data);
 
@@ -35,9 +38,9 @@ const WeatherForecastDay = (props) => {
       <WeatherIcon code={weatherData.weather[0].icon} size={36} />
       <div className="WeatherForecast-temperature">
         <span className="WeatherForecast-temperature-max">
-          {maxTemperature()}°
+          {maxTemperature()}°|
         </span>
-        <span className="WeatherForecast-temperature-min">
+        <span className="WeatherForecast__temperature_min">
           {minTemperature()}°
         </span>
       </div>

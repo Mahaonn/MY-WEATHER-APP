@@ -4,7 +4,7 @@ import WeatherForecastDay from "./WeatherForecastDay";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Weather.css";
-import "../styles/WeatherForcast.css";
+import "../styles/WeatherForecast.css";
 
 const WeatherForecastWeekly = (props) => {
   const [forecast, setForecast] = useState(null);

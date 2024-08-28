@@ -8,6 +8,11 @@
   margin-bottom: 20px;
 }
 
+.svg-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
 .Weather .weather-temperature canvas {
   display: inline-block;
   margin-right: 10px;
@@ -41,6 +46,10 @@
 
 .Weather .weather-temperature .active:hover {
   text-decoration: none;
+}
+
+.weather-details li {
+  text-align: start;
 }
 
 .Weather .weather-forecast {

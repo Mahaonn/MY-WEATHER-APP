@@ -1,0 +1,10 @@
+.WeatherForecastWeekly {
+  text-align: center;
+}
+
+.WeatherForecast__temperature_min {
+  padding-left: 3px;
+  font-weight: 500;
+  color: var(--color-secondary-pink);
+  opacity: 0.6;
+}

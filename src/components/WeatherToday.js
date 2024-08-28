@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import FormattedDate from "./FormattedDate";
 import WeatherIcon from "./WeatherIcon";
+import IconsSvg from "./IconsSvg";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Weather.css";
@@ -46,7 +47,10 @@ const WeatherToday = (props) => {
   return (
     <div className="Weather">
       <div className="overview">
-        <h1>{weatherData.city}</h1>
+        <h1>
+          <IconsSvg icon={"LocationSvg"} />
+          {weatherData.city}
+        </h1>
         <ul>
           <li>
             <FormattedDate date={weatherData.date} />
@@ -86,11 +90,14 @@ const WeatherToday = (props) => {
             </div>
           </div>
         </div>
-        <div className="col-6">
+        <div className="col-6 weather-details">
           <ul>
-            <li>Humidity: {weatherData.humidity}%</li>
             <li>
-              Wind: {parseFloat(weatherData.wind).toFixed(1)}{" "}
+              <IconsSvg icon={"HumiditySvg"} /> {weatherData.humidity}%
+            </li>
+            <li>
+              <IconsSvg icon={"WindSvg"} />{" "}
+              {parseFloat(weatherData.wind).toFixed(1)}{" "}
               {props.unit === "metric" ? "km/h" : "mph"}
             </li>
           </ul>
