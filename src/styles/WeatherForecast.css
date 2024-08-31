@@ -1,5 +1,7 @@
 .WeatherForecastWeekly {
   text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .WeatherForecast__temperature_min {

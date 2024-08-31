@@ -3,7 +3,7 @@ import "../styles/Footer.css";
 export default function Footer() {
   return (
     <footer className="footer">
-      <address>
+      <address className="address">
         Coded by&nbsp;
         <a
           className="address-link"

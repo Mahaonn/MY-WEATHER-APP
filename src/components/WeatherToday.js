@@ -47,7 +47,7 @@ const WeatherToday = (props) => {
   return (
     <div className="Weather">
       <div className="overview">
-        <h1>
+        <h1 className="city">
           <IconsSvg icon={"LocationSvg"} />
           {weatherData.city}
         </h1>

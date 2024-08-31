@@ -7,7 +7,9 @@
 .Weather .overview {
   margin-bottom: 20px;
 }
-
+.city {
+  font-size: 56px;
+}
 .svg-icon {
   margin-right: 8px;
   vertical-align: middle;
@@ -46,6 +48,10 @@
 
 .Weather .weather-temperature .active:hover {
   text-decoration: none;
+}
+
+.weather-details ul {
+  padding-left: 6rem;
 }
 
 .weather-details li {

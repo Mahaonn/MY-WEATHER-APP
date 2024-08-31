@@ -11,6 +11,10 @@
   color: #ffffff;
 }
 
+.address {
+  margin: 0;
+}
+
 .address-link {
   color: var(--color-primary-pink);
 }

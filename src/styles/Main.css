@@ -1,14 +1,10 @@
 .main {
   flex: 1;
-  flex-grow: 1;
 }
 
 .weather-app-backdrop {
   flex-direction: column;
-  background-image: url(../images/backdrop.jpg);
-  background-size: cover;
-  width: 70%;
-  min-width: 660px;
+  width: 660px;
   min-height: 100%;
   margin: 0 auto;
   padding: 45px 15px 90px 15px;
@@ -25,10 +21,6 @@
   border-radius: 10px;
   padding: 10px 15px;
   color: var(--color-secondary-pink);
-}
-
-.weather-app-container {
-  margin-bottom: 35px;
 }
 
 .weather-app-time {

@@ -6,7 +6,7 @@ import WeatherForecastWeekly from "./WeatherForecastWeekly";
 import "../styles/Main.css";
 
 const Main = ({ userCity }) => {
-  const defaultCity = "Zilina";
+  const defaultCity = "Kyiv";
   const city = userCity || defaultCity;
 
   const [weatherData, setWeatherData] = useState(null);
