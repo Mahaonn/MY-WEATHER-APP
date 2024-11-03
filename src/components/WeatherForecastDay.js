@@ -17,25 +17,25 @@ const WeatherForecastDay = (props) => {
 
   const maxTemperature = () => {
     return props.unit === "metric"
-      ? Math.round(weatherData.temp.max)
-      : Math.round(convertToFahrenheit(weatherData.temp.max));
+      ? Math.round(weatherData.temperature.maximum)
+      : Math.round(convertToFahrenheit(weatherData.temperature.maximum));
   };
 
   const minTemperature = () => {
     return props.unit === "metric"
-      ? Math.round(weatherData.temp.min)
-      : Math.round(convertToFahrenheit(weatherData.temp.min));
+      ? Math.round(weatherData.temperature.minimum)
+      : Math.round(convertToFahrenheit(weatherData.temperature.minimum));
   };
 
   const day = () => {
-    let date = new Date(weatherData.dt * 1000);
+    let date = new Date(weatherData.time * 1000);
     return date.toLocaleDateString("en-us", { weekday: "short" });
   };
 
   return (
     <>
       <div className="WeatherForecast-day">{day()}</div>
-      <WeatherIcon code={weatherData.weather[0].icon} size={36} />
+      <WeatherIcon condition={weatherData.condition.icon} size={56} />
       <div className="WeatherForecast-temperature">
         <span className="WeatherForecast-temperature-max">
           {maxTemperature()}°|

@@ -11,23 +11,23 @@ const Main = ({ userCity }) => {
 
   const [weatherData, setWeatherData] = useState(null);
   const [unit, setUnit] = useState("metric");
-  const apiKey = "71bf820fa0e438fd4a4ee25fb7c05c5a";
+  const apiKey = "7b358bb45a2c3obdef533te70adb056a";
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+          `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`
         );
         setWeatherData({
-          coordinate: response.data.coord,
-          temperature: response.data.main.temp,
-          humidity: response.data.main.humidity,
+          coordinate: response.data.coordinates,
+          temperature: response.data.temperature.current,
+          humidity: response.data.temperature.humidity,
           date: new Date(response.data.dt * 1000),
-          description: response.data.weather[0].description,
-          icon: response.data.weather[0].icon,
+          description: response.data.condition.description,
+          icon: response.data.condition.icon,
           wind: response.data.wind.speed,
-          city: response.data.name,
+          city: response.data.city,
         });
       } catch (error) {
         console.error("Error fetching weather data:", error);

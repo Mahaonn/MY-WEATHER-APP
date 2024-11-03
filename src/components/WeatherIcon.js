@@ -1,32 +1,49 @@
-import ReactAnimatedWeather from "react-animated-weather";
+import clearDay from "../images/clear-day.png";
+import clearNight from "../images/clear-night.png";
+import partlyCloudyDay from "../images/partly-cloudy.png";
+import partlyCloudyNight from "../images/partly-cloudy-night.png";
+import scatteredCloudyDay from "../images/partly-cloudy-1.png";
+import scatteredCloudyNight from "../images/partly-cloudy-night-1.png";
+import brokenCloudyDay from "../images/cloudy.png";
+import brokenCloudyNight from "../images/cloudy.png";
+import showerRainDay from "../images/hard-rain.png";
+import showerRainNight from "../images/hard-rain.png";
+import rainDay from "../images/partly-cloudy-rain.png";
+import rainNight from "../images/partly-cloudy-rain-night.png";
+import thunderstormDay from "../images/thunderstorm-1.png";
+import thunderstormNight from "../images/thunderstorm-nigth.png";
+import snowDay from "../images/partly-cloudy-snow.png";
+import snowNight from "../images/partly-cloudy-snow-night.png";
+import mistDay from "../images/mist.png";
+import mistNight from "../images/mist.png";
 
-const WeatherIcon = ({ code, size = 64, color = "#f5c7f7" }) => {
+const WeatherIcon = ({ condition, size }) => {
   const mapIconsWeather = {
-    "01d": "CLEAR_DAY",
-    "01n": "CLEAR_NIGHT",
-    "02d": "PARTLY_CLOUDY_DAY",
-    "02n": "PARTLY_CLOUDY_NIGHT",
-    "03d": "PARTLY_CLOUDY_DAY",
-    "03n": "PARTLY_CLOUDY_NIGHT",
-    "04d": "CLOUDY",
-    "04n": "CLOUDY",
-    "09d": "RAIN",
-    "09n": "RAIN",
-    "10d": "RAIN",
-    "10n": "RAIN",
-    "11d": "RAIN",
-    "11n": "RAIN",
-    "13d": "SNOW",
-    "13n": "SNOW",
-    "50d": "FOG",
-    "50n": "FOG",
+    "clear-sky-day": clearDay,
+    "clear-sky-night": clearNight,
+    "few-clouds-day": partlyCloudyDay,
+    "few-clouds-night": partlyCloudyNight,
+    "scattered-clouds-day": scatteredCloudyDay,
+    "scattered-clouds-night": scatteredCloudyNight,
+    "broken-clouds-day": brokenCloudyDay,
+    "broken-clouds-night": brokenCloudyNight,
+    "shower-rain-day": showerRainDay,
+    "shower-rain-night": showerRainNight,
+    "rain-day": rainDay,
+    "rain-night": rainNight,
+    "thunderstorm-day": thunderstormDay,
+    "thunderstorm-night": thunderstormNight,
+    "snow-day": snowDay,
+    "snow-night": snowNight,
+    "mist-day": mistDay,
+    "mist-night": mistNight,
   };
   return (
-    <ReactAnimatedWeather
-      icon={mapIconsWeather[code]}
-      color={color}
-      size={size}
-      animated={true}
+    <img
+      src={mapIconsWeather[condition]}
+      alt="Weather icon"
+      width={size}
+      height={size}
     />
   );
 };

@@ -63,9 +63,9 @@ const WeatherToday = (props) => {
           <div className="clearfix weather-temperature">
             <div className="float-start">
               <WeatherIcon
-                code={weatherData.icon}
+                condition={weatherData.icon}
                 alt={weatherData.description}
-                size={52}
+                size={112}
               />
             </div>
             <div className="float-start weather-temperature">

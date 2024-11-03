@@ -24,9 +24,9 @@ const FormattedDate = (props) => {
     "Nov",
     "Dec",
   ];
-  let day = days[props.date.getDay()];
-  let currentDate = props.date.getDate();
-  let month = months[props.date.getMonth()];
+  const day = days[currentTime.getDay()];
+  const currentDate = currentTime.getDate();
+  const month = months[currentTime.getMonth()];
   const hours = currentTime.getHours().toString().padStart(2, "0");
   const minutes = currentTime.getMinutes().toString().padStart(2, "0");
   const seconds = currentTime.getSeconds().toString().padStart(2, "0");
