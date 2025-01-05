@@ -1,10 +1,19 @@
-// Form.js
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import "../styles/Form.css";
 
 const Form = ({ onCityChange }) => {
   const [userInputCity, setUserInputCity] = useState("");
+  const [recentCities, setRecentCities] = useState([]);
+
+  useEffect(() => {
+    try {
+      const storedCities =
+        JSON.parse(localStorage.getItem("recentCities")) || [];
+      setRecentCities(storedCities);
+    } catch (error) {
+      console.error("Error accessing localStorage", error);
+    }
+  }, []);
 
   const handleCityChange = (e) => {
     setUserInputCity(e.target.value);
@@ -12,6 +21,15 @@ const Form = ({ onCityChange }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (userInputCity && !recentCities.includes(userInputCity)) {
+      const updatedCities = [userInputCity, ...recentCities.slice(0, 5)];
+      setRecentCities(updatedCities);
+      try {
+        localStorage.setItem("recentCities", JSON.stringify(updatedCities));
+      } catch (error) {
+        console.error("Error saving to localStorage", error);
+      }
+    }
     onCityChange(userInputCity);
   };
 
@@ -29,7 +47,13 @@ const Form = ({ onCityChange }) => {
             placeholder="Enter a city.."
             value={userInputCity}
             onChange={handleCityChange}
+            list="cities"
           />
+          <datalist id="cities">
+            {recentCities.map((city, index) => (
+              <option key={index} value={city} />
+            ))}
+          </datalist>
           {userInputCity && (
             <button type="button" onClick={clearInput} className="clear__btn">
               &times;
