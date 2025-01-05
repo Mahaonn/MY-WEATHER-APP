@@ -14,6 +14,15 @@
   margin-right: 8px;
   vertical-align: middle;
 }
+.monospace {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.weather-temperature {
+  padding-top: 20px;
+}
 
 .Weather .weather-temperature canvas {
   display: inline-block;
@@ -51,7 +60,8 @@
 }
 
 .weather-details ul {
-  padding-left: 6rem;
+  padding-left: 1rem;
+  padding-top: 20px;
 }
 
 .weather-details li {

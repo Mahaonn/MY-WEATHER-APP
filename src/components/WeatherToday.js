@@ -59,8 +59,8 @@ const WeatherToday = (props) => {
         </ul>
       </div>
       <div className="row">
-        <div className="col-6">
-          <div className="clearfix weather-temperature">
+        <div className="col-8">
+          <div className="clearfix">
             <div className="float-start">
               <WeatherIcon
                 condition={weatherData.icon}
@@ -90,7 +90,7 @@ const WeatherToday = (props) => {
             </div>
           </div>
         </div>
-        <div className="col-6 weather-details">
+        <div className="col-4 weather-details">
           <ul>
             <li>
               <IconsSvg icon={"HumiditySvg"} /> {weatherData.humidity}%
@@ -103,6 +103,7 @@ const WeatherToday = (props) => {
           </ul>
         </div>
       </div>
+      <hr />
     </div>
   );
 };
