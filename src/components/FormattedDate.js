@@ -34,7 +34,10 @@ const FormattedDate = (props) => {
   return (
     <div>
       {day}, {currentDate} {}
-      {month} {hours}:{minutes}:{seconds}
+      {month}{" "}
+      <span className="monospace">
+        {hours}:{minutes}:{seconds}
+      </span>
     </div>
   );
 };
