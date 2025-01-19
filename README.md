@@ -50,7 +50,7 @@ This weather app allows users to get up-to-date weather information for any city
 
 ## API
 
-The app uses the 🌤 SheCodes Weather API (https://www.shecodes.io/learn/apis/weather) to fetch weather data. To use the API, you need to register on the OpenWeatherMap website and obtain an API key.
+The app uses the 🌤 SheCodes Weather API (https://www.shecodes.io/learn/apis/weather) to fetch weather data. To use the API, you need to register on the SheCodes website and obtain an API key.
 
 ## Contribution
 
